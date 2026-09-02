@@ -13,11 +13,18 @@ public record SimulationResult(Statut statut, Double montant, String motif) {
 
     /** Libelle du statut tel qu'affiche a l'ecran : "éligible" / "inéligible" / "erreur". */
     public String statutAffiche() {
-        throw new UnsupportedOperationException("TODO : implementer l'affichage du statut (AC4.3)");
-    }
+    return switch (statut) {
+        case ELIGIBLE -> "éligible";
+        case INELIGIBLE -> "inéligible";
+        case ERREUR -> "erreur";
+    };
+}
 
     /** Montant formate tel qu'affiche a l'ecran (ex. "1000 €"), ou null si aucun montant. */
     public String montantAffiche() {
-        throw new UnsupportedOperationException("TODO : implementer l'affichage du montant (AC4.1/AC4.2)");
+    if (montant == null) {
+        return null;
     }
+    return montant.intValue() + " €";
+}
 }
