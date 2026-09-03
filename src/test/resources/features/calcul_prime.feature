@@ -37,3 +37,26 @@ Feature: Calcul du montant de la prime
       | 59  | 1800    |
       | 60  | 1600    |
       | 80  | 1600    |
+
+  @RG-06 @MCDC
+  Scenario: Couverture MC/DC de la condition du forfait - pivot (toutes vraies)
+    Given les valeurs A=1000, B=20000, C=500, D=3499, E=10, F=0, G=0, H=1
+    And que le citoyen a 25 ans
+    When le calcul est déclenché
+    Then le montant de la prime est 1000 €
+
+  @RG-06 @MCDC
+  Scenario Outline: Couverture MC/DC de la condition du forfait - une condition fausse
+    Given les valeurs A=<A>, B=<B>, C=<C>, D=<D>, E=<E>, F=<F>, G=<G>, H=<H>
+    And que le citoyen a 25 ans
+    When le calcul est déclenché
+    Then le montant de la prime n'est pas 1000 €
+
+    Examples:
+      | A    | B     | C   | D    | E  | F | G | H |
+      | 999  | 20000 | 500 | 3499 | 10 | 0 | 0 | 1 |
+      | 1000 | 20001 | 500 | 3499 | 10 | 0 | 0 | 1 |
+      | 1000 | 20000 | 499 | 3499 | 10 | 0 | 0 | 1 |
+      | 1000 | 20000 | 500 | 3500 | 10 | 0 | 0 | 1 |
+      | 1000 | 20000 | 500 | 3499 | 11 | 0 | 0 | 1 |
+      | 1000 | 20000 | 500 | 3499 | 10 | 0 | 1 | 1 |

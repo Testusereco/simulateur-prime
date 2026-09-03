@@ -47,3 +47,10 @@ Feature: Contrôle de recevabilité des valeurs de simulation
     When le citoyen valide la simulation
     Then le résultat est "inéligible (A < 1000)"
     And aucun autre message d'inéligibilité ou d'erreur n'est affiché
+
+  @RG-09
+  Scenario: Le contrôle B domine le contrôle H quand les deux échouent simultanément
+    Given les valeurs A=1000, B=200000, C=0, D=0, E=1, F=1, G=1, H=0
+    When le citoyen valide la simulation
+    Then le résultat est "inéligible (B > 100000)"
+    And aucun autre message d'inéligibilité ou d'erreur n'est affiché 

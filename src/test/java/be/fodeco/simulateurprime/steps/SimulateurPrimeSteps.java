@@ -101,6 +101,11 @@ public class SimulateurPrimeSteps {
         assertEquals(montantAttendu, dernierMontant, 0.01);
     }
 
+    @Then("le montant de la prime n'est pas {int} €")
+    public void leMontantDeLaPrimeNEstPas(int montantNonAttendu) {
+        assertNotEquals((double) montantNonAttendu, dernierMontant, 0.01);
+}
+
     // ---------- Feature 4 : affichage_resultat.feature (AC4.1-AC4.3) ----------
 
     @Given("qu'un calcul de prime a été effectué avec succès pour un montant de {int} €")
