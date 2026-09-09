@@ -1,1 +1,10 @@
-<p>resultat-display works!</p>
+<div>
+  <p data-testid="statut">Statut : {{ statutAffiche() }}</p>
+
+  @if (montantAffiche()) {
+    <p data-testid="montant">{{ montantAffiche() }}</p>
+  } @else {
+    <p data-testid="motif">{{ resultat().motif }}</p>
+  }
+</div>
+
