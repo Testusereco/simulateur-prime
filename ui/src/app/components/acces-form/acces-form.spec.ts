@@ -2,18 +2,24 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { AccesForm } from './acces-form';
 import { Acces, AccesResponse } from '../../services/acces';
+import { Router } from '@angular/router';
 
 describe('AccesForm', () => {
   let component: AccesForm;
   let fixture: ComponentFixture<AccesForm>;
   let verifierAccesMock: ReturnType<typeof vi.fn>;
+  let navigateMock: ReturnType<typeof vi.fn>;
 
-  beforeEach(() => {
+    beforeEach(() => {
     verifierAccesMock = vi.fn();
+    navigateMock = vi.fn();
 
     TestBed.configureTestingModule({
       imports: [AccesForm],
-      providers: [{ provide: Acces, useValue: { verifierAcces: verifierAccesMock } }],
+      providers: [
+        { provide: Acces, useValue: { verifierAcces: verifierAccesMock } },
+        { provide: Router, useValue: { navigateByUrl: navigateMock } },
+      ],
     });
 
     fixture = TestBed.createComponent(AccesForm);
@@ -91,5 +97,26 @@ describe('AccesForm', () => {
 
     const messageEl = fixture.nativeElement.querySelector('[data-testid="error-message"]');
     expect(messageEl).toBeNull();
+  });
+    it('navigue vers /simulation quand l\'accès est autorisé', () => {
+        
+    const reponse: AccesResponse = { autorise: true, message: null };
+    verifierAccesMock.mockReturnValue(of(reponse));
+
+    component.age.set(25);
+    component.onSubmit();
+
+    expect(navigateMock).toHaveBeenCalledWith('/simulation');
+  });
+
+  it("ne navigue pas quand l'accès est refusé", () => {
+       
+    const reponse: AccesResponse = { autorise: false, message: 'Citoyen inéligible : âge hors limites' };
+    verifierAccesMock.mockReturnValue(of(reponse));
+
+    component.age.set(17);
+    component.onSubmit();
+
+    expect(navigateMock).not.toHaveBeenCalled();
   });
 });
