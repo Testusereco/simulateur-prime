@@ -1,10 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Simulation, SimulationRequest, SimulationResult } from '../../services/simulation';
+import { ResultatDisplay } from '../resultat-display/resultat-display';
 
 @Component({
   selector: 'app-simulation-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ResultatDisplay],
   templateUrl: './simulation-form.html',
   styleUrl: './simulation-form.scss',
 })

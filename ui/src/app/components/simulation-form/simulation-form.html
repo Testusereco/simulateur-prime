@@ -28,11 +28,7 @@
 
   <button type="submit" data-testid="submit-button">Calculer</button>
 
-  @if (resultat()) {
-    @if (resultat()!.statut === 'ELIGIBLE') {
-      <p data-testid="montant">Montant de la prime : {{ resultat()!.montant }} €</p>
-    } @else {
-      <p data-testid="motif">{{ resultat()!.motif }}</p>
-    }
+    @if (resultat()) {
+    <app-resultat-display [resultat]="resultat()!" />
   }
 </form>
