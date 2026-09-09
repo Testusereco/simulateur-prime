@@ -34,4 +34,24 @@ class SimulationControllerTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.autorise").value(true));
     }
+
+    @Test
+void simulation_renvoieResultatEligible_quandDonneesValides() throws Exception {
+    mockMvc.perform(post("/api/simulation")
+            .contentType("application/json")
+            .content("{\"age\":25,\"a\":1000,\"b\":1000,\"c\":0,\"d\":0,\"e\":1,\"f\":1,\"g\":1,\"h\":1}"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.statut").value("ELIGIBLE"))
+        .andExpect(jsonPath("$.montant").value(2000.0));
+}
+
+@Test
+void simulation_renvoieIneligible_quandAInsuffisant() throws Exception {
+    mockMvc.perform(post("/api/simulation")
+            .contentType("application/json")
+            .content("{\"age\":25,\"a\":500,\"b\":1000,\"c\":0,\"d\":0,\"e\":1,\"f\":1,\"g\":1,\"h\":1}"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.statut").value("INELIGIBLE"))
+        .andExpect(jsonPath("$.motif").value("inéligible (A < 1000)"));
+}
 }
