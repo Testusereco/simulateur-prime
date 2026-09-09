@@ -1,1 +1,38 @@
-<p>simulation-form works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label for="age">Âge</label>
+  <input id="age" type="number" data-testid="age-input" formControlName="age" />
+
+  <label for="a">A</label>
+  <input id="a" type="number" data-testid="a-input" formControlName="a" />
+
+  <label for="b">B</label>
+  <input id="b" type="number" data-testid="b-input" formControlName="b" />
+
+  <label for="c">C</label>
+  <input id="c" type="number" data-testid="c-input" formControlName="c" />
+
+  <label for="d">D</label>
+  <input id="d" type="number" data-testid="d-input" formControlName="d" />
+
+  <label for="e">E</label>
+  <input id="e" type="number" data-testid="e-input" formControlName="e" />
+
+  <label for="f">F</label>
+  <input id="f" type="number" data-testid="f-input" formControlName="f" />
+
+  <label for="g">G</label>
+  <input id="g" type="number" data-testid="g-input" formControlName="g" />
+
+  <label for="h">H</label>
+  <input id="h" type="number" data-testid="h-input" formControlName="h" />
+
+  <button type="submit" data-testid="submit-button">Calculer</button>
+
+  @if (resultat()) {
+    @if (resultat()!.statut === 'ELIGIBLE') {
+      <p data-testid="montant">Montant de la prime : {{ resultat()!.montant }} €</p>
+    } @else {
+      <p data-testid="motif">{{ resultat()!.motif }}</p>
+    }
+  }
+</form>
