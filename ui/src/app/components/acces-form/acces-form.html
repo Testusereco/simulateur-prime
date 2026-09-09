@@ -1,1 +1,16 @@
-<p>acces-form works!</p>
+<form (submit)="onSubmit(); $event.preventDefault()">
+  <label for="age">Âge</label>
+  <input
+    id="age"
+    type="number"
+    data-testid="age-input"
+    [value]="age()"
+    (input)="age.set(+$any($event.target).value)"
+  />
+
+  <button type="submit" data-testid="submit-button">Valider</button>
+
+  @if (resultat() && !resultat()!.autorise) {
+    <p data-testid="error-message">{{ resultat()!.message }}</p>
+  }
+</form>
