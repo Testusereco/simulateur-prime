@@ -54,4 +54,14 @@ void simulation_renvoieIneligible_quandAInsuffisant() throws Exception {
         .andExpect(jsonPath("$.statut").value("INELIGIBLE"))
         .andExpect(jsonPath("$.motif").value("inéligible (A < 1000)"));
 }
+
+@Test
+void cors_autoriseOrigineAngular() throws Exception {
+    mockMvc.perform(post("/api/acces")
+            .header("Origin", "http://localhost:4200")
+            .contentType("application/json")
+            .content("{\"age\": 25}"))
+        .andExpect(status().isOk())
+        .andExpect(header().string("Access-Control-Allow-Origin", "http://localhost:4200"));
+}
 }
