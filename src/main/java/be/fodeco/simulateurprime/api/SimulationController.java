@@ -25,4 +25,8 @@ public SimulationResult simulation(@RequestBody SimulationRequest request) {
         request.d(), request.e(), request.f(), request.g(), request.h()
     );
 }
+@GetMapping("/health")
+public String health() {
+    return "OK";
+}
 }

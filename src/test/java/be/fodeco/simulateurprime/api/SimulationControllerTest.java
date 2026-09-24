@@ -6,7 +6,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -63,5 +63,10 @@ void cors_autoriseOrigineAngular() throws Exception {
             .content("{\"age\": 25}"))
         .andExpect(status().isOk())
         .andExpect(header().string("Access-Control-Allow-Origin", "http://localhost:4200"));
+}
+@Test
+void health_repondUnStatutOk() throws Exception {
+    mockMvc.perform(get("/api/health"))
+        .andExpect(status().isOk());
 }
 }

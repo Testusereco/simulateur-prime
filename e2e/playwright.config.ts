@@ -75,7 +75,7 @@ export default defineConfig({
     {
       command: 'mvn spring-boot:run',
       cwd: '../',
-      url: 'http://localhost:8080/api/acces',
+      url: 'http://localhost:8080/api/health',
       reuseExistingServer: !process.env.CI,
       timeout: 120_000,
     },
