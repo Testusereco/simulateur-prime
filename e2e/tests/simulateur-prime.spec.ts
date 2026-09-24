@@ -40,4 +40,24 @@ test.describe('Simulateur de prime', () => {
     await expect(page.getByTestId('statut')).toContainText('éligible');
     await expect(page.getByTestId('montant')).toContainText('2000 €');
   });
+    test('affiche le motif quand inéligible', async ({ page }) => {
+    await page.goto('/');
+    await page.getByTestId('age-input').fill('25');
+    await page.getByTestId('submit-button').click();
+
+    await page.getByTestId('age-input').fill('25');
+    await page.getByTestId('a-input').fill('500');
+    await page.getByTestId('b-input').fill('1000');
+    await page.getByTestId('c-input').fill('0');
+    await page.getByTestId('d-input').fill('0');
+    await page.getByTestId('e-input').fill('1');
+    await page.getByTestId('f-input').fill('1');
+    await page.getByTestId('g-input').fill('1');
+    await page.getByTestId('h-input').fill('1');
+    await page.getByTestId('submit-button').click();
+
+    await expect(page.getByTestId('statut')).toContainText('inéligible');
+    await expect(page.getByTestId('motif')).toContainText('A < 1000');
+    await expect(page.getByTestId('montant')).toHaveCount(0);
+  });
 });
